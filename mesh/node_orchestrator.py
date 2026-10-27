@@ -1,8 +1,8 @@
 import requests
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
 
-# List of active edge nodes in your distributed mesh network
 ACTIVE_NODES = [
     {"name": "Node-Alpha (Port 8080)", "url": "http://localhost:8080/v1/chat/completions"},
     {"name": "Node-Beta  (Port 8081)", "url": "http://localhost:8081/v1/chat/completions"}
@@ -13,49 +13,49 @@ def query_node(node, prompt):
     payload = {
         "model": "Phi-3-mini",
         "messages": [
-            {"role": "system", "content": "You are a decentralized edge AI node."},
+            {"role": "system", "content": "You are a concise edge AI processing node."},
             {"role": "user", "content": prompt}
         ],
-        "temperature": 0.7,
-        "max_tokens": 30
+        "temperature": 0.5,
+        "max_tokens": 25
     }
-    
-    print(f"[*] Routing request to -> {node['name']}...")
+
     start_time = time.time()
-    
     try:
         response = requests.post(node['url'], headers=headers, data=json.dumps(payload), timeout=300)
-        elapsed_time = round(time.time() - start_time, 2)
-        
+        elapsed = round(time.time() - start_time, 2)
         if response.status_code == 200:
-            result = response.json()
-            content = result['choices'][0]['message']['content'].strip()
-            return content, elapsed_time
-        else:
-            return f"Error: {response.status_code}", elapsed_time
-    except requests.exceptions.ConnectionError:
-        return f"Error: {node['name']} unreachable.", 0
+            content = response.json()['choices'][0]['message']['content'].strip()
+            return node['name'], content, elapsed
+        return node['name'], f"Error {response.status_code}", elapsed
+    except Exception as e:
+        return node['name'], f"Failed: {str(e)}", 0
 
-def run_distributed_mesh():
-    prompts = [
-        "Explain how decentralized computing saves power.",
-        "What is the environmental impact of traditional data centers?"
-    ]
-    
+def execute_parallel_mesh(sub_prompts):
     print("==================================================")
-    print(" PROJECT BAOBAB: DISTRIBUTED MESH FABRIC ROUTER ")
+    print(" PROJECT BAOBAB: PARALLEL MESH PROCESSOR ")
     print("==================================================\n")
-    
-    for i, prompt in enumerate(prompts):
-        # Round-robin distribution across available micro-nodes
-        assigned_node = ACTIVE_NODES[i % len(ACTIVE_NODES)]
-        
-        print(f"Task #{i+1}: '{prompt}'")
-        output, latency = query_node(assigned_node, prompt)
-        
-        print(f"Response: {output}")
-        print(f"Latency: {latency}s | Zero Data Center Power Used")
-        print("-" * 50 + "\n")
+
+    results = []
+    # Dispatch tasks concurrently across active nodes
+    with ThreadPoolExecutor(max_workers=len(ACTIVE_NODES)) as executor:
+        futures = [
+            executor.submit(query_node, ACTIVE_NODES[i % len(ACTIVE_NODES)], prompt)
+            for i, prompt in enumerate(sub_prompts)
+        ]
+        for future in futures:
+            results.append(future.result())
+
+    for node_name, response, latency in results:
+        print(f"[{node_name}] Latency: {latency}s")
+        print(f"Sub-output: {response}\n" + "-"*40)
 
 if __name__ == "__main__":
-    run_distributed_mesh()
+    # Splitting a complex query into multi-node parallel sub-tasks
+    sub_tasks = [
+        "State one issue with big tech data center energy use.",
+        "State one benefit of decentralized local edge computing."
+    ]
+
+    print("Splitting primary prompt into parallel edge tasks...\n")
+    execute_parallel_mesh(sub_tasks)
