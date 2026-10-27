@@ -14,3 +14,9 @@ Traditional AI relies on massive, power-hungry data centers that consume gigawat
    ```bash
    ./llama-server -m model.gguf --port 8080
    ./llama-server -m model.gguf --port 8081
+
+## 📊 Performance Benchmarks (Local CPU Node)
+* **Execution Time:** ~107 seconds (30 tokens)
+* **CPU Load:** ~83.9% Average / 100% Peak
+* **RAM Footprint:** ~56.3% Utilization
+* **Infrastructure Cost:** $0.00 / Zero Cloud Dependency / Zero Water Cooling
