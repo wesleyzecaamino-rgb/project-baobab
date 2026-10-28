@@ -1,22 +1,47 @@
-# Project Baobab: Zero-Infrastructure Decentralized AI Fabric
+# 🌳 Project Baobab
+> **Decentralized Edge AI Mesh Orchestrator with Automated Micro-Payments**
 
-## 🌍 The Vision
-Traditional AI relies on massive, power-hungry data centers that consume gigawatts of electricity and millions of gallons of water for cooling. **Project Baobab** is a decentralized, zero-data-center token generation framework designed to run locally on low-power, ambient-powered edge hardware.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![PayPal REST API v2](https://img.shields.io/badge/PayPal-v2%20REST%20API-003087.svg)](https://developer.paypal.com/)
+[![Built for Hackathon](https://img.shields.io/badge/Devpost-PayPal%20AI%20Hackathon-00E5FF.svg)](https://devpost.com)
 
-## 🏗️ Architecture
-* **Inference Engine:** Pure C/C++ localized execution via `llama.cpp` using heavily quantized GGUF models.
-* **Mesh Orchestrator:** A Python-based load-balancing router that splits prompts and routes them across distributed local micro-nodes.
-* **Sustainability:** Designed for 100% off-grid deployment using solar and kinetic energy harvesting, eliminating acoustic, carbon, and water pollution.
+Project Baobab is a lightweight, decentralized edge-computing orchestrator designed to shard complex AI tasks across distributed, low-power edge nodes (e.g., Raspberry Pi 5, off-grid hardware) and automatically settle real-time compute rewards via micro-payments.
 
-## 🚀 Quick Start
-1. Clone the repository and install dependencies.
-2. Spin up local micro-nodes on separate ports:
-   ```bash
-   ./llama-server -m model.gguf --port 8080
-   ./llama-server -m model.gguf --port 8081
+---
 
-## 📊 Performance Benchmarks (Local CPU Node)
-* **Execution Time:** ~107 seconds (30 tokens)
-* **CPU Load:** ~83.9% Average / 100% Peak
-* **RAM Footprint:** ~56.3% Utilization
-* **Infrastructure Cost:** $0.00 / Zero Cloud Dependency / Zero Water Cooling
+## 💡 The Problem & The Baobab Vision
+
+Traditional centralized AI infrastructure relies on massive, power-hungry data centers that draw heavily from centralized energy grids and create high operational costs.
+
+**Project Baobab** flips this paradigm by creating a localized, peer-to-peer compute network:
+* **Green AI Infrastructure:** Designed to run on low-cost edge nodes powered by localized renewable energy (solar/battery storage).
+* **Automated Micro-Economies:** Nodes complete local inference tasks and receive instant micro-payouts using the PayPal REST API v2, creating a self-funding infrastructure model.
+* **Distributed Parallel Processing:** Prompts and compute workloads are sharded concurrently across available network nodes, eliminating single points of failure.
+
+---
+
+## ⚡ Key Features
+
+* 🔀 **Task Sharding Engine:** Uses Python's `concurrent.futures` thread execution to dispatch workloads across multiple edge nodes simultaneously.
+* 💳 **Automated PayPal Micro-Payouts:** Real-time OAuth 2.0 authentication and automated payment order creation (`v2/checkout/orders`) triggered upon verified task completion.
+* 🛡️ **Edge-Native Resilience:** Built to handle asynchronous network responses, low latency, and modular node expansion.
+* 🔌 **Zero-Footprint Deployment:** Lightweight architecture runnable on laptops, mini-PCs, or single-board computers (Raspberry Pi 4/5).
+
+---
+
+## 🛠️ Tech Stack
+
+* **Language:** Python 3.10+
+* **Concurrency:** `concurrent.futures` / Threading
+* **APIs & Protocols:** PayPal REST API v2 (OAuth 2.0 Client Credentials), HTTP REST, JSON payloads
+* **Environment:** Cross-platform (Linux / Debian / Ubuntu / Raspberry Pi OS)
+
+---
+
+## 🚀 Quick Start & Installation
+
+### 1. Prerequisites
+Ensure you have Python installed on your system:
+```bash
+python3 --version
